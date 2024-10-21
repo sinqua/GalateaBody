@@ -28,6 +28,9 @@ public class Network : MonoBehaviour
     IEnumerator SendDataToServer(string text)
     {
         string url = "http://localhost:8000/predict";
+        // string url = "http://211.234.200.142:8000/predict";
+        // string url = "http://172.20.10.2:8000/predict";
+        // string url = "http://192.0.0.3:8000/predict";
         Message message = new Message{ message = text };
         string jsonData = JsonUtility.ToJson(message);
         byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
