@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1310,7 +1310,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 19.455156
+  field of view: 19.455158
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1629,7 +1629,7 @@ MonoBehaviour:
   outputText: {fileID: 640474697}
   inputField: {fileID: 996015787}
   speakButton: {fileID: 482515173}
-  audioSource: {fileID: 2015705234}
+  audioSource: {fileID: 1837217632}
 --- !u!114 &1299578869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2196,7 +2196,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 17b1d0dc51a7b4d4581679264886fb79, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.349
   m_Pitch: 1
