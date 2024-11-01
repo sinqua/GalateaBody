@@ -59,15 +59,16 @@ public class ChzzkUnity : MonoBehaviour
         onMessage.AddListener(DebugMessage);
         onDonation.AddListener(DebugDonation);
         onSubscription.AddListener(DebugSubscription);
+        Connect().Forget();
     }
     
     private void Update()
     {
-        if (closedCount > 0)
+        if (closedCount >= 0)
         {
             onClose?.Invoke();
             if (!reOpenTrying)
-                StartCoroutine(TryReOpen());
+                // StartCoroutine(TryReOpen());
             closedCount--;
         }
     }
@@ -229,7 +230,7 @@ public class ChzzkUnity : MonoBehaviour
         try
         {
             IDictionary<string, object> data = JsonConvert.DeserializeObject<IDictionary<string, object>>(e.Data);
-            Debug.Log(e.Data);
+            // Debug.Log(e.Data);
 
             JArray body;
             JObject bodyObject;
