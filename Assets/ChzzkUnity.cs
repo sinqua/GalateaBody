@@ -15,7 +15,6 @@ using UnityEngine.UI;
 
 public class ChzzkUnity : MonoBehaviour
 {
-    public TextToSpeech textToSpeech;
     public TMP_InputField inputField;
     public Button button;
 
@@ -92,11 +91,10 @@ public class ChzzkUnity : MonoBehaviour
             HttpResponseMessage response = await httpClient.PostAsync("http://localhost:8000/predict", content);
             response.EnsureSuccessStatusCode();
             Debug.Log("Message posted to server successfully.");
+
             var chat = await response.Content.ReadAsStringAsync();
-            Message chatMessage = JsonUtility.FromJson<Message>(chat);
-            Debug.Log(chatMessage.message);
-            inputField.text = chatMessage.message.ToString();
-            
+            ChatMessage chatMessage = JsonUtility.FromJson<ChatMessage>(chat);
+            inputField.text = chatMessage.response;
         }
         catch (HttpRequestException e)
         {
@@ -389,6 +387,10 @@ public class ChzzkUnity : MonoBehaviour
     public class Message
     {
         public string message;
+    }
+    public class ChatMessage
+    {
+        public string response;
     }
 
     [Serializable]
