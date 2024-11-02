@@ -8,9 +8,17 @@ using UnityEngine.Networking;
 using WebSocketSharp;
 using System.Collections;
 using Cysharp.Threading.Tasks;
+using System.Net.Http;
+using System.Text;
+using TMPro;
+using UnityEngine.UI;
 
 public class ChzzkUnity : MonoBehaviour
 {
+    public TextToSpeech textToSpeech;
+    public TMP_InputField inputField;
+    public Button button;
+
     #region Variables
 
     //WSS(WS 말고 WSS) 쓰려면 필요함.
@@ -50,6 +58,7 @@ public class ChzzkUnity : MonoBehaviour
 
     int closedCount = 0;
     bool reOpenTrying = false;
+    HttpClient httpClient = new HttpClient();
 
     #region Unity Methods
 
@@ -57,6 +66,7 @@ public class ChzzkUnity : MonoBehaviour
     void Start()
     {
         onMessage.AddListener(DebugMessage);
+        onMessage.AddListener(PostMessageToServer);
         onDonation.AddListener(DebugDonation);
         onSubscription.AddListener(DebugSubscription);
         Connect().Forget();
@@ -72,7 +82,28 @@ public class ChzzkUnity : MonoBehaviour
             closedCount--;
         }
     }
-    
+    private async void PostMessageToServer(Profile profile, string text)
+    {
+        Message jsonData = new Message{ message = text };
+        var jsonString = JsonUtility.ToJson(jsonData);
+        var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+        try
+        {
+            HttpResponseMessage response = await httpClient.PostAsync("http://localhost:8000/predict", content);
+            response.EnsureSuccessStatusCode();
+            Debug.Log("Message posted to server successfully.");
+            var chat = await response.Content.ReadAsStringAsync();
+            Message chatMessage = JsonUtility.FromJson<Message>(chat);
+            Debug.Log(chatMessage.message);
+            inputField.text = chatMessage.message.ToString();
+            
+        }
+        catch (HttpRequestException e)
+        {
+            Debug.LogError("Error posting message to server: " + e.Message);
+        }
+    }
+
     public IEnumerator TryReOpen()
     {
         reOpenTrying = true;
@@ -113,6 +144,7 @@ public class ChzzkUnity : MonoBehaviour
     private void DebugMessage(Profile profile, string str)
     {
         Debug.Log($"| [Message] {profile.nickname} - {str}");
+
     }
     private void DebugDonation(Profile profile, string str, DonationExtras donation)
     {
@@ -353,6 +385,11 @@ public class ChzzkUnity : MonoBehaviour
 
     #region Sub-classes
 
+    [System.Serializable]
+    public class Message
+    {
+        public string message;
+    }
 
     [Serializable]
     public class LiveStatus

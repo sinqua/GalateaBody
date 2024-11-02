@@ -103,7 +103,7 @@ public class TextToSpeech : MonoBehaviour
         }
     }
 
-    void Start()
+    void Awake()
     {
         if (outputText == null)
         {

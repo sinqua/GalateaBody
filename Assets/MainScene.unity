@@ -1434,6 +1434,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1156688668}
   - component: {fileID: 1156688667}
+  - component: {fileID: 1156688670}
   - component: {fileID: 1156688669}
   m_Layer: 0
   m_Name: GameManager
@@ -1482,6 +1483,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a25af337fe74c39ad07240358de4f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputField: {fileID: 996015787}
+  textToSpeech: {fileID: 1156688670}
   channel: 43f86ac2314a8b4232ec7239614fe51a
   onMessage:
     m_PersistentCalls:
@@ -1498,6 +1501,22 @@ MonoBehaviour:
   onOpen:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1156688670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1156688666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4279ed80698ec498894d9d61eb473891, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outputText: {fileID: 640474697}
+  inputField: {fileID: 996015787}
+  speakButton: {fileID: 482515173}
+  audioSource: {fileID: 2015705234}
 --- !u!1 &1210991664 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5531200442843189817, guid: 8e497f78e3ee0f544b7e6c0720da03cf, type: 3}
@@ -1564,7 +1583,7 @@ MonoBehaviour:
   outputText: {fileID: 640474697}
   inputField: {fileID: 996015787}
   speakButton: {fileID: 482515173}
-  audioSource: {fileID: 1837217632}
+  audioSource: {fileID: 2015705234}
 --- !u!114 &1299578869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2092,7 +2111,7 @@ GameObject:
   - component: {fileID: 2015705234}
   - component: {fileID: 2015705233}
   m_Layer: 0
-  m_Name: SampleAudio
+  m_Name: Audio Source
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2134,8 +2153,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 17b1d0dc51a7b4d4581679264886fb79, type: 3}
-  m_Resource: {fileID: 8300000, guid: 17b1d0dc51a7b4d4581679264886fb79, type: 3}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.349
   m_Pitch: 1
@@ -2242,8 +2261,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 963194228}
   - {fileID: 705507995}
-  - {fileID: 1156688668}
   - {fileID: 1564127075}
   - {fileID: 1299578872}
+  - {fileID: 1156688668}
   - {fileID: 2015705235}
   - {fileID: 373168389}
