@@ -51,5 +51,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "GalateaBody.sln"
+    "dotnet.defaultSolution": "GalateaBody.sln",
+    "dotnet.preferCSharpExtension": true
 }

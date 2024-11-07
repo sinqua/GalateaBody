@@ -32,7 +32,8 @@ public class TextToSpeech : MonoBehaviour
     private SpeechConfig speechConfig;
     private SpeechSynthesizer synthesizer;
 
-    public void ButtonClick()
+
+    public void ButtonClick(string textMessage)
     {
         lock (threadLocker)
         {
@@ -43,7 +44,7 @@ public class TextToSpeech : MonoBehaviour
         var startTime = DateTime.Now;
 
         // Starts speech synthesis, and returns once the synthesis is started.
-        using (var result = synthesizer.StartSpeakingTextAsync(inputField.text).Result)
+        using (var result = synthesizer.StartSpeakingTextAsync(textMessage).Result)
         {
             // Native playback is not supported on Unity yet (currently only supported on Windows/Linux Desktop).
             // Use the Unity API to play audio here as a short term solution.
@@ -124,7 +125,7 @@ public class TextToSpeech : MonoBehaviour
             // Continue with normal initialization, Text, InputField and Button objects are present.
             inputField.text = "Enter text you wish spoken here.";
             message = "Click button to synthesize speech";
-            speakButton.onClick.AddListener(ButtonClick);
+            //speakButton.onClick.AddListener(ButtonClick);
 
             // Creates an instance of a speech config with specified subscription key and service region.
             speechConfig = SpeechConfig.FromSubscription(SubscriptionKey, Region);

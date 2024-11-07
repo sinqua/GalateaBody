@@ -15,8 +15,7 @@ using UnityEngine.UI;
 
 public class ChzzkUnity : MonoBehaviour
 {
-    public TMP_InputField inputField;
-    public Button button;
+    public TextToSpeech textToSpeech;
 
     #region Variables
 
@@ -59,6 +58,8 @@ public class ChzzkUnity : MonoBehaviour
     bool reOpenTrying = false;
     HttpClient httpClient = new HttpClient();
 
+
+
     #region Unity Methods
 
     // Start is called before the first frame update
@@ -81,7 +82,7 @@ public class ChzzkUnity : MonoBehaviour
             closedCount--;
         }
     }
-    private async void PostMessageToServer(Profile profile, string text)
+    async void PostMessageToServer(Profile profile, string text)
     {
         Message jsonData = new Message{ message = text };
         var jsonString = JsonUtility.ToJson(jsonData);
@@ -89,13 +90,16 @@ public class ChzzkUnity : MonoBehaviour
         try
         {
             HttpResponseMessage response = await httpClient.PostAsync("http://localhost:8000/predict", content);
-            response.EnsureSuccessStatusCode();
-            Debug.Log("Message posted to server successfully.");
-
             var chat = await response.Content.ReadAsStringAsync();
             ChatMessage chatMessage = JsonUtility.FromJson<ChatMessage>(chat);
-            inputField.text = chatMessage.response;
-        }
+            Debug.Log(chatMessage.response);
+
+            UniTask.Void(async () =>
+            {
+                await UniTask.SwitchToMainThread();
+                textToSpeech.ButtonClick(chatMessage.response);
+            });
+        }   
         catch (HttpRequestException e)
         {
             Debug.LogError("Error posting message to server: " + e.Message);
