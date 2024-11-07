@@ -13,9 +13,6 @@ using TMPro;
 public class TextToSpeech : MonoBehaviour
 {
     // Hook up the three properties below with a Text, InputField and Button object in your UI.
-    public TextMeshProUGUI outputText;
-    public TMP_InputField inputField;
-    public Button speakButton;
     public AudioSource audioSource;
 
     // Replace with your own subscription key and service region (e.g., "westus").
@@ -106,61 +103,34 @@ public class TextToSpeech : MonoBehaviour
 
     void Awake()
     {
-        if (outputText == null)
-        {
-            UnityEngine.Debug.LogError("outputText property is null! Assign a UI Text element to it.");
-        }
-        else if (inputField == null)
-        {
-            message = "inputField property is null! Assign a UI InputField element to it.";
-            UnityEngine.Debug.LogError(message);
-        }
-        else if (speakButton == null)
-        {
-            message = "speakButton property is null! Assign a UI Button to it.";
-            UnityEngine.Debug.LogError(message);
-        }
-        else
-        {
-            // Continue with normal initialization, Text, InputField and Button objects are present.
-            inputField.text = "Enter text you wish spoken here.";
-            message = "Click button to synthesize speech";
-            //speakButton.onClick.AddListener(ButtonClick);
+        
+        // Continue with normal initialization, Text, InputField and Button objects are present.
+        message = "Click button to synthesize speech";
+        //speakButton.onClick.AddListener(ButtonClick);
 
-            // Creates an instance of a speech config with specified subscription key and service region.
-            speechConfig = SpeechConfig.FromSubscription(SubscriptionKey, Region);
+        // Creates an instance of a speech config with specified subscription key and service region.
+        speechConfig = SpeechConfig.FromSubscription(SubscriptionKey, Region);
 
-            // The default format is RIFF, which has a riff header.
-            // We are playing the audio in memory as audio clip, which doesn't require riff header.
-            // So we need to set the format to raw (24KHz for better quality).
-            speechConfig.SetSpeechSynthesisOutputFormat(SpeechSynthesisOutputFormat.Raw24Khz16BitMonoPcm);
+        // The default format is RIFF, which has a riff header.
+        // We are playing the audio in memory as audio clip, which doesn't require riff header.
+        // So we need to set the format to raw (24KHz for better quality).
+        speechConfig.SetSpeechSynthesisOutputFormat(SpeechSynthesisOutputFormat.Raw24Khz16BitMonoPcm);
 
-            // Creates a speech synthesizer.
-            // Make sure to dispose the synthesizer after use!
-            synthesizer = new SpeechSynthesizer(speechConfig, null);
+        // Creates a speech synthesizer.
+        // Make sure to dispose the synthesizer after use!
+        synthesizer = new SpeechSynthesizer(speechConfig, null);
 
-            synthesizer.SynthesisCanceled += (s, e) =>
-            {
-                var cancellation = SpeechSynthesisCancellationDetails.FromResult(e.Result);
-                message = $"CANCELED:\nReason=[{cancellation.Reason}]\nErrorDetails=[{cancellation.ErrorDetails}]\nDid you update the subscription info?";
-            };
-        }
+        synthesizer.SynthesisCanceled += (s, e) =>
+        {
+            var cancellation = SpeechSynthesisCancellationDetails.FromResult(e.Result);
+            message = $"CANCELED:\nReason=[{cancellation.Reason}]\nErrorDetails=[{cancellation.ErrorDetails}]\nDid you update the subscription info?";
+        };
     }
 
     void Update()
     {
         lock (threadLocker)
         {
-            if (speakButton != null)
-            {
-                speakButton.interactable = !waitingForSpeak;
-            }
-
-            if (outputText != null)
-            {
-                outputText.text = message;
-            }
-
             if (audioSourceNeedStop)
             {
                 audioSource.Stop();
