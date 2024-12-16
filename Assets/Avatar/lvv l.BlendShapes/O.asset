@@ -15,9 +15,6 @@ MonoBehaviour:
   m_prefab: {fileID: 0}
   BlendShapeName: O
   Preset: 6
-  Values:
-  - RelativePath: Face
-    Index: 8
-    Weight: 100
+  Values: []
   MaterialValues: []
   IsBinary: 0
