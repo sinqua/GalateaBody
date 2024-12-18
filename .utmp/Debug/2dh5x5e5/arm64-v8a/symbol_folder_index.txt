@@ -1,0 +1,1 @@
+C:\Users\sinq0\Source\GalateaBody\Library\PramData\AndroidApplicationController\Cache\com.DefaultCompany.GalateaBody\gradle-project\unityLibrary\build\intermediates\cxx\Debug\2dh5x5e5\obj\arm64-v8a

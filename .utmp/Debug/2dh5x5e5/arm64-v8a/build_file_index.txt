@@ -1,0 +1,3 @@
+C:\Users\sinq0\Source\GalateaBody\Library\PramData\AndroidApplicationController\Cache\com.DefaultCompany.GalateaBody\gradle-project\unityLibrary\src\main\cpp\CMakeLists.txt
+C:\Users\sinq0\Source\GalateaBody\Library\PramData\AndroidApplicationController\Cache\com.DefaultCompany.GalateaBody\gradle-project\unityLibrary\src\main\cpp\FramePacing\CMakeLists.txt
+C:\Users\sinq0\Source\GalateaBody\Library\PramData\AndroidApplicationController\Cache\com.DefaultCompany.GalateaBody\gradle-project\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt
